@@ -12,9 +12,9 @@ const USERS_SERVICE_URL = `${process.env.USER_SERVICE_URL}/api/users`;
 const PRODUCTS_SERVICE_URL = `${process.env.PRODUCT_SERVICE_URL}/api/products`;
 const ORDERS_SERVICE_URL = `${process.env.ORDER_SERVICE_URL}/api/orders`;
 
-const CACHE_EXPIRATION = 60; // Cache expiration time in seconds
+const CACHE_EXPIRATION = 60;
 
-// Helper function for GET requests with caching
+
 export const get = async (url: string, useCache = false, cacheKey?: string) => {
   if (useCache && cacheKey) {
     const cachedData = await redis.get(cacheKey);
@@ -27,7 +27,7 @@ export const get = async (url: string, useCache = false, cacheKey?: string) => {
     const response = await axios.get(url);
     const data = response.data;
 
-    // Cache the response if caching is enabled
+   
     if (useCache && cacheKey) {
       await redis.set(cacheKey, JSON.stringify(data), 'EX', CACHE_EXPIRATION);
     }
@@ -38,7 +38,6 @@ export const get = async (url: string, useCache = false, cacheKey?: string) => {
   }
 };
 
-// Helper function for POST requests
 export const post = async (url: string, data: any) => {
   try {
     const response = await axios.post(url, data, {
@@ -50,7 +49,7 @@ export const post = async (url: string, data: any) => {
   }
 };
 
-// Centralized error handling
+
 const handleAxiosError = (error: any, url: string) => {
   console.error(
     `Error calling ${url}:`,
@@ -69,7 +68,7 @@ const handleAxiosError = (error: any, url: string) => {
   });
 };
 
-// API Calls for each service
+
 export const userService = {
   getAllUsers: () => get(USERS_SERVICE_URL),
   getUserById: (id: string) => get(`${USERS_SERVICE_URL}/${id}`),

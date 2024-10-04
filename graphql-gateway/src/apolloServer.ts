@@ -27,7 +27,7 @@ async function createApolloGraphqlServer() {
     }
   });
 
-  // Start the gql server
+
   await gqlServer.start();
 
   return gqlServer;

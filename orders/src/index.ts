@@ -29,7 +29,7 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    //Listening for Nats-Events
+  
     new UserRegisteredListener(natsWrapper.client).listen();
     new UserUpdatedListener(natsWrapper.client).listen();
     new ProductCreatedListener(natsWrapper.client).listen();

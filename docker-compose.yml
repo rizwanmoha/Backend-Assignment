@@ -33,7 +33,7 @@ services:
       NATS_URL: nats://nats-streaming:4222
       NATS_CLUSTER_ID: syncchain
       NATS_CLIENT_ID: user-service
-    # JWT_SECRET: ${JWT_SECRET:-defaultsecret}
+  
     restart: unless-stopped
 
   order-service:

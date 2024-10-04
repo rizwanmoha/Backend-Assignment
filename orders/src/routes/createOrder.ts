@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
-import { prismaClient } from '../lib/db'; // Adjust the import path as necessary
+import { prismaClient } from '../lib/db';
 import { validateRequest } from '../middlewares/validate-request';
 import { BadRequestError } from '../errors/bad-request-error';
 import { OrderPlacedPublisher } from '../events/publishers/order-placed-publisher';
@@ -42,7 +42,7 @@ router.post(
         throw new BadRequestError('Insufficient quantity available');
       }
 
-      // Create the new order
+    
       const newOrder = await prismaClient.order.create({
         data: {
           userId,

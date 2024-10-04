@@ -26,7 +26,7 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    //Listening for Nats-Events
+    
     new OrderPlacedListener(natsWrapper.client).listen();
   } catch (error) {
     console.error(error);

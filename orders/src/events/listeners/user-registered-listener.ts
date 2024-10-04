@@ -11,7 +11,7 @@ export class UserRegisteredListener extends Listener<UserRegisteredEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: UserRegisteredEvent['data'], msg: Message) {
-    console.log(data);
+    
     const { email, userId, firstName, lastName, location, contactNumber } =
       data;
 

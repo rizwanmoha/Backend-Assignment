@@ -35,7 +35,7 @@ router.post(
     const { name, description, price, quantity } = req.body;
 
     try {
-      // Create the new product
+     
       const newProduct = await prismaClient.product.create({
         data: {
           name,

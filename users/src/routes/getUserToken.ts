@@ -27,22 +27,22 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      // Validate if email and password are provided
+      
       if (!email || !password) {
         throw new BadRequestError('Email and password must be provided');
       }
 
-      // Find the user by email
+   
       const user = await prismaClient.user.findUnique({
         where: { email },
       });
 
-      // If user not found, throw error
+    
       if (!user) {
         throw new BadRequestError('Invalid credentials');
       }
 
-      // Check if the provided password matches the hashed password in the database
+     
       const passwordMatch = await Password.comparePassword(user.password,password);
       if (!passwordMatch) {
         throw new BadRequestError('Invalid credentials');
@@ -57,7 +57,7 @@ router.post(
       const token = jwt.sign(
         tokenPayload,
         process.env.JWT_SECRET as string || 'asdf',
-        { expiresIn: '3h' } // Token expiration time
+        { expiresIn: '3h' }
       );
 
       res.status(200).json({

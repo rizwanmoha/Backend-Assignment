@@ -13,7 +13,7 @@ export class OrderPlacedListener extends Listener<OrderPlacedEvent> {
   async onMessage(data: OrderPlacedEvent['data'], msg: Message) {
     const { productId, quantity } = data;
 
-    // Fetch the product by ID
+   
     const product = await prismaClient.product.findUnique({
       where: { id: productId }
     });
@@ -31,11 +31,11 @@ export class OrderPlacedListener extends Listener<OrderPlacedEvent> {
     const updatedProduct = await prismaClient.product.update({
       where: { id: productId },
       data: {
-        quantity: newQuantity // Update the quantity
+        quantity: newQuantity 
       }
     });
     
-    // Acknowledge the message
+   
     msg.ack();
   }
 }

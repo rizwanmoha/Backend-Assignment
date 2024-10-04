@@ -11,9 +11,7 @@ export class OrderPlacedListener extends Listener<OrderPlacedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderPlacedEvent['data'], msg: Message) {
-    console.log(data);
-
-    // Extracting data from the data
+  
     const {
       orderId,
       productId,
@@ -25,7 +23,7 @@ export class OrderPlacedListener extends Listener<OrderPlacedEvent> {
       productName
     } = data;
 
-    // Insert data into the Order table
+ 
     const newOrder = await prismaClient.order.create({
       data: {
         id: orderId,
@@ -39,7 +37,7 @@ export class OrderPlacedListener extends Listener<OrderPlacedEvent> {
       }
     });
 
-    // Acknowledge the message
+ 
     msg.ack();
   }
 }

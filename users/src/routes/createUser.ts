@@ -50,7 +50,7 @@ router.post(
     const { email, password, firstName, lastName, location, contactNumber } =
       req.body;
     try {
-      // Check if the user already exists
+
       const existingUser = await prismaClient.user.findUnique({
         where: { email }
       });
@@ -59,10 +59,8 @@ router.post(
         throw new BadRequestError('Email already in use');
       }
 
-      // Hash the password before saving to the database
       const hashedPassword = await Password.toHash(password);
 
-      // Create a new user in the database
       const newUser = await prismaClient.user.create({
         data: {
           email,
@@ -74,14 +72,14 @@ router.post(
         }
       });
 
-      // Generate a JWT token
+      
       const token = jwt.sign(
         { userId: newUser.id, email: newUser.email },
         (process.env.JWT_SECRET as string) || 'asdf',
-        { expiresIn: '3h' } // Token expiration time
+        { expiresIn: '3h' } 
       );
 
-      // Exclude password field from the user object
+     
       const { password: _, ...userWithoutPassword } = newUser;
 
       await new UserRegisteredPublisher(natsWrapper.client).publish({
@@ -93,7 +91,6 @@ router.post(
         location: newUser.location
       });
 
-      // Respond with success message and the token
       res.status(201).json({
         success: true,
         message: 'User created successfully',
@@ -101,7 +98,7 @@ router.post(
         user: userWithoutPassword
       });
     } catch (error) {
-      next(error); // Pass the error to the Error handling middleware
+      next(error); 
     }
   }
 );

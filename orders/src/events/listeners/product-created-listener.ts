@@ -11,7 +11,7 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: ProductCreatedEvent['data'], msg: Message) {
-    console.log(data);
+  
     const { name, price, productId, quantity, description } = data;
 
     // Check if the product ID already exists
